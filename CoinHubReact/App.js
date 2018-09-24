@@ -28,35 +28,78 @@
  * THE SOFTWARE.
  */
 
-'use strict';
+ 'use strict';
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import {
-  createStackNavigator,
-} from 'react-navigation';
-import SearchPage from './SearchPage';
-import SearchResults from './SearchResults';
-import PropertyView from './PropertyView';
-import MyHomeScreen from './MyHomeScreen';
-import MyNotificationsScreen from './MyNotificationsScreen';
-import { DrawerNavigator } from 'react-navigation';
+ import React, {Component} from 'react';
+ import {Platform, StyleSheet, Text, View} from 'react-native';
+ // import {
+ // 	createStackNavigator,
+ // } from 'react-navigation';
+ import SearchPage from './SearchPage';
+ import SearchResults from './SearchResults';
+ import PropertyView from './PropertyView';
+ import MyHomeScreen from './MyHomeScreen';
+ import MyNotificationsScreen from './MyNotificationsScreen';
+ import Ionicons from 'react-native-vector-icons/Ionicons';
+ import Icon from 'react-native-ionicons'
+ // import { DrawerNavigator } from 'react-navigation';
+ // import { createDrawerNavigator } from 'react-navigation';
+ import { createBottomTabNavigator,
+ 	createStackNavigator,
+ 	createDrawerNavigator
+ } from 'react-navigation';
 
 // const App = createStackNavigator({
-//   Home: { screen: SearchPage },
-//   Results: { screen: SearchResults },
-//   Property: { screen: PropertyView},
+  // Home: { screen: SearchPage },
+  // Results: { screen: SearchResults },
+  // Property: { screen: PropertyView},
 
 // });
 
-const App = DrawerNavigator({
-  Home: {
-    screen: MyHomeScreen,
-  },
-  Notifications: {
-    screen: MyNotificationsScreen,
-  },
+const HomeStack = createStackNavigator({
+	Home: { screen: SearchPage },
+	Results: { screen: SearchResults },
+	Property: { screen: PropertyView},
 });
+
+const SettingsStack = createStackNavigator({
+	MyHomeScreen: { screen: MyHomeScreen },
+	Notifications: { screen: MyNotificationsScreen },
+});
+
+const App = createBottomTabNavigator(
+{
+	Home: HomeStack,
+	Settings: SettingsStack,
+},
+{
+	navigationOptions: ({ navigation }) => ({
+		tabBarIcon: ({ focused, tintColor }) => {
+			const { routeName } = navigation.state;
+			let androidIcon;
+			let iosIcon;
+			if (routeName === 'Home') {
+				iosIcon = focused ? "ios-add" : "ios-home";
+				androidIcon = focused ? "md-home" : "md-home";
+			} else if (routeName === 'Settings') {
+				iosIcon = focused ? "ios-add" : "ios-add";
+				androidIcon = focused ? "md-add" : "md-add";
+			}
+
+        // You can return any component that you like here! We usually use an
+        // icon component from react-native-vector-icons
+        // return <Ionicons name={iconName} size={25} color={tintColor} />;
+
+        return <Icon ios={iosIcon} android={androidIcon} size={25} color={tintColor}/>;
+    },
+}),
+	tabBarOptions: {
+		activeTintColor: 'red',
+		inactiveTintColor: 'gray',
+	},
+}
+
+);
 
 export default App;
 

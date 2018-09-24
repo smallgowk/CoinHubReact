@@ -15,6 +15,7 @@ type Props = {};
 
 export default class MyHomeScreen extends Component<Props> {
 	static navigationOptions = {
+		title: 'Home',
 		drawerLabel: 'Home',
 		drawerIcon: ({ tintColor }) => (
 			<Image
@@ -27,7 +28,8 @@ export default class MyHomeScreen extends Component<Props> {
 	render() {
 		return (
 			<Button
-			onPress={() => this.props.navigation.navigate('Notifications')}
+			// onPress={() => this.props.navigation.navigate('Notifications')}
+			onPress={() => this.props.navigation.navigate('Home')}
 			title="Go to notifications"
 			/>
 			);
