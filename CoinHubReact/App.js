@@ -38,10 +38,26 @@ import {
 import SearchPage from './SearchPage';
 import SearchResults from './SearchResults';
 import PropertyView from './PropertyView';
+import MyHomeScreen from './MyHomeScreen';
+import MyNotificationsScreen from './MyNotificationsScreen';
+import { DrawerNavigator } from 'react-navigation';
 
-const App = createStackNavigator({
-  Home: { screen: SearchPage },
-  Results: { screen: SearchResults },
-  Property: { screen: PropertyView},
+// const App = createStackNavigator({
+//   Home: { screen: SearchPage },
+//   Results: { screen: SearchResults },
+//   Property: { screen: PropertyView},
+
+// });
+
+const App = DrawerNavigator({
+  Home: {
+    screen: MyHomeScreen,
+  },
+  Notifications: {
+    screen: MyNotificationsScreen,
+  },
 });
+
 export default App;
+
+
